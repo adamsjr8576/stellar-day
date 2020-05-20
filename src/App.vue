@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <StellarDay />
+    <StellarDay :date='imageInfo.date'/>
     <StellarImage :imageInfo='imageInfo'/>
-    <DayForm />
+    <DayForm @update:date='resetDate'/>
   </div>
 </template>
 
@@ -27,14 +27,22 @@
       this.getImageInfo();
     },
     methods: {
-      async getImageInfo() {
+      async getImageInfo(date) {
+        if (date === undefined) {
+          date = '';
+        }
         try {
-          const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=8oQoPUrgzaFZKmMLnJAHgmp8kptIxV6YAC3CUceC');
+          const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=8oQoPUrgzaFZKmMLnJAHgmp8kptIxV6YAC3CUceC${date}`);
           const data = await response.json();
           this.imageInfo = data;
         } catch (error) {
           console.log(error);
         }
+      },
+
+      resetDate(date) {
+        date = "&date=" + date;
+        this.getImageInfo(date);
       }
     }
   }
@@ -46,10 +54,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: rgb(220, 220, 220);
+    color: #E9EAF1;
     height: 100%;
     width: 100%;
     background-color: rgb(20, 20, 20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   body {
