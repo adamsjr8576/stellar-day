@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <Header />
-    <StellarImage />
+    <StellarDay />
+    <StellarImage :imageInfo='imageInfo'/>
     <DayForm />
   </div>
 </template>
 
 <script>
-  import Header from './components/Header.vue';
+  import StellarDay from './components/StellarDay.vue';
   import StellarImage from './components/StellarImage.vue';
   import DayForm from './components/DayForm.vue';
 
   export default {
     name: 'App',
     components: {
-      Header,
+      StellarDay,
       StellarImage,
       DayForm
     },
@@ -23,8 +23,19 @@
         imageInfo: {}
       }
     },
+    mounted() {
+      this.getImageInfo();
+    },
     methods: {
-
+      async getImageInfo() {
+        try {
+          const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=8oQoPUrgzaFZKmMLnJAHgmp8kptIxV6YAC3CUceC');
+          const data = await response.json();
+          this.imageInfo = data;
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
   }
 </script>

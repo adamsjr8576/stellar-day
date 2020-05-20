@@ -1,13 +1,22 @@
 <template>
   <section>
+    <img :src='imageInfo.url' :alt='imageInfo.title' />
   </section>
 </template>
 
 <script>
   export default {
-    name: 'header'
+    name: 'header',
+    props: {
+      imageInfo: Object
+    }
   }
 </script>
 
-<style>
+<style scoped>
+  img {
+    height: 500px;
+    width: auto;
+  }
+
 </style>
