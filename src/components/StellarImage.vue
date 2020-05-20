@@ -4,8 +4,20 @@
     <div v-else class='image-info-container'>
       <img class='stellar-image' :src='imageInfo.url' :alt='imageInfo.title' />
       <div class='text'>
-        <img v-if='imageInfo.favorite' class='star' :src='favoriteStar' alt='golden star icon' />
-        <img v-else class='star' :src='emptyStar' alt='empty star icon' />
+        <img
+          v-if='imageInfo.favorite'
+          class='star'
+          :src='favoriteStar'
+          alt='golden star icon'
+          @click="$emit('toggle:favorites', imageInfo)"
+        />
+        <img
+          v-else
+          class='star'
+          :src='emptyStar'
+          alt='empty star icon'
+          @click="$emit('toggle:favorites', imageInfo)"
+        />
         <h2>{{ imageInfo.title }}</h2>
         <p>{{ imageInfo.explanation }}</p>
         <p>Date: {{ imageInfo.date }}</p>

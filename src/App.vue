@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <StellarDay :date='todayDate'/>
-    <StellarImage :imageInfo='imageInfo' :hasError='hasError'/>
+    <StellarImage :imageInfo='imageInfo' :hasError='hasError' @toggle:favorites='toggleFavorites'/>
     <DayForm @update:date='resetDate'/>
   </div>
 </template>
@@ -52,6 +52,16 @@
         const check = this.favorites.filter(favorite => favorite.title = imageInfo.title);
         check.length === 1? imageInfo.favorite = true : imageInfo.favorite = false;
         return imageInfo;
+      },
+
+      toggleFavorites(imageInfo) {
+        if (imageInfo.favorite) {
+          imageInfo.favorite = false;
+          this.favorites = this.favorites.filter(favorite => favorite.title !== imageInfo.title)
+        } else {
+          imageInfo.favorite = true;
+          this.favorites.push(imageInfo);
+        }
       },
 
       resetDate(date) {
