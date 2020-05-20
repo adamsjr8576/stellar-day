@@ -4,6 +4,7 @@
     <div>
       <h2>{{ imageInfo.title }}</h2>
       <p>{{ imageInfo.explanation }}</p>
+      <p>Date: {{ imageInfo.date }}</p>
     </div>
   </section>
 </template>
@@ -29,6 +30,7 @@
   img {
     height: auto;
     width: 60%;
+    max-height: 600px;
   }
 
   div {

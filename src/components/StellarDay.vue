@@ -2,7 +2,7 @@
   <header>
     <div></div>
     <h1>Have a STELLAR day!</h1>
-    <p>Today's Date: {{ date }}</p>
+    <p>{{ date }}</p>
   </header>
 </template>
 

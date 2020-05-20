@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <StellarDay :date='imageInfo.date'/>
+    <StellarDay :date='todayDate'/>
     <StellarImage :imageInfo='imageInfo'/>
     <DayForm @update:date='resetDate'/>
   </div>
@@ -11,6 +11,10 @@
   import StellarImage from './components/StellarImage.vue';
   import DayForm from './components/DayForm.vue';
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const today = new Date();
+  const date = today.toLocaleDateString("en-US", options);
+
   export default {
     name: 'App',
     components: {
@@ -20,7 +24,8 @@
     },
     data() {
       return {
-        imageInfo: {}
+        imageInfo: {},
+        todayDate: date
       }
     },
     mounted() {
