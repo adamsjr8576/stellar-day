@@ -12,8 +12,10 @@
     </article>
   </section>
   <section v-else class='no-favorites-section'>
-    <button @click="$emit('hide:showFavorites', false)">Back</button>
-    <p>You have no favorites!!</p>
+    <div class='back-button-container'>
+      <button @click="$emit('hide:favorites', false)">Back</button>
+    </div>
+    <p class='no-favorite-p'>You have no favorites!!</p>
   </section>
 </template>
 
@@ -30,6 +32,7 @@
 <style scoped>
   .favorites-section {
     height: 90vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -44,8 +47,17 @@
     justify-content: center;
   }
 
+  .back-button-container {
+    margin: 100px 0;
+  }
+
   .no-favorites-section {
     height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   button {
@@ -56,6 +68,15 @@
     border: 0;
     outline: 0;
     cursor: pointer;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    transition: transform 1s;
+  }
+
+  .no-favorite-p {
+    font-size: 3em;
   }
 
   article {
