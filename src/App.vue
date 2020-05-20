@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <StellarDay :date='todayDate'/>
-    <StellarImage :imageInfo='imageInfo'/>
+    <StellarImage :imageInfo='imageInfo' :hasError='hasError'/>
     <DayForm @update:date='resetDate'/>
   </div>
 </template>
@@ -25,7 +25,8 @@
     data() {
       return {
         imageInfo: {},
-        todayDate: date
+        todayDate: date,
+        hasError: false
       }
     },
     mounted() {
@@ -39,13 +40,17 @@
         try {
           const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=8oQoPUrgzaFZKmMLnJAHgmp8kptIxV6YAC3CUceC${date}`);
           const data = await response.json();
+          if (data.code === 400) {
+            this.hasError = true;
+          }
           this.imageInfo = data;
         } catch (error) {
-          console.log(error);
+          console.log(error)
         }
       },
 
       resetDate(date) {
+        this.hasError = false;
         date = "&date=" + date;
         this.getImageInfo(date);
       }
