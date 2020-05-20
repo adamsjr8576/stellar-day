@@ -48,7 +48,7 @@
     justify-content: space-around;
     width: 100%;
     font-size: 1.5em;
-    height: 100px;
+    height: 10vh;
   }
 
   .date-input {

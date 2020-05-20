@@ -1,8 +1,19 @@
 <template>
   <div id="app">
-    <StellarDay :date='todayDate'/>
-    <StellarImage :imageInfo='imageInfo' :hasError='hasError' @toggle:favorites='toggleFavorites'/>
-    <DayForm @update:date='resetDate'/>
+    <StellarDay :favorites='favorites' :date='todayDate' @show:favorites='showFavorites = true'/>
+    <Favorites
+      v-if='showFavorites'
+      :favorites='favorites'
+      @hide:favorites='showFavorites = false'
+      @display:selected='displaySelected'
+    />
+    <StellarImage
+      v-else
+      :imageInfo='imageInfo'
+      :hasError='hasError'
+      @toggle:favorites='toggleFavorites'
+    />
+    <DayForm v-if='!showFavorites' @update:date='resetDate'/>
   </div>
 </template>
 
@@ -10,6 +21,7 @@
   import StellarDay from './components/StellarDay.vue';
   import StellarImage from './components/StellarImage.vue';
   import DayForm from './components/DayForm.vue';
+  import Favorites from './components/Favorites.vue';
 
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const today = new Date();
@@ -20,14 +32,16 @@
     components: {
       StellarDay,
       StellarImage,
-      DayForm
+      DayForm,
+      Favorites
     },
     data() {
       return {
         imageInfo: {},
         todayDate: date,
         hasError: false,
-        favorites: []
+        favorites: [],
+        showFavorites: false
       }
     },
     mounted() {
@@ -49,7 +63,7 @@
       },
 
       checkFavorites(imageInfo) {
-        const check = this.favorites.filter(favorite => favorite.title = imageInfo.title);
+        const check = this.favorites.filter(favorite => favorite.title === imageInfo.title);
         check.length === 1? imageInfo.favorite = true : imageInfo.favorite = false;
         return imageInfo;
       },
@@ -62,6 +76,12 @@
           imageInfo.favorite = true;
           this.favorites.push(imageInfo);
         }
+      },
+
+      displaySelected(imageInfo) {
+        console.log('made it')
+        this.showFavorites = false;
+        this.imageInfo = imageInfo;
       },
 
       resetDate(date) {

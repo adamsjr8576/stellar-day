@@ -59,6 +59,7 @@
     justify-content: space-around;
     width: 100%;
     min-height: 600px;
+    height: 80vh;
   }
 
   .star {
