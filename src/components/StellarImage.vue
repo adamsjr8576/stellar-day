@@ -2,8 +2,10 @@
   <section>
     <p v-if='hasError'>{{ imageInfo.msg }} Please select another date.</p>
     <div v-else class='image-info-container'>
-      <img :src='imageInfo.url' :alt='imageInfo.title' />
+      <img class='stellar-image' :src='imageInfo.url' :alt='imageInfo.title' />
       <div class='text'>
+        <img v-if='imageInfo.favorite' class='star' :src='favoriteStar' alt='golden star icon' />
+        <img v-else class='star' :src='emptyStar' alt='empty star icon' />
         <h2>{{ imageInfo.title }}</h2>
         <p>{{ imageInfo.explanation }}</p>
         <p>Date: {{ imageInfo.date }}</p>
@@ -13,11 +15,20 @@
 </template>
 
 <script>
+  import emptyStar from '../images/emptyStar.png';
+  import favoriteStar from '../images/favoriteStar.png';
+
   export default {
     name: 'header',
     props: {
       imageInfo: Object,
-      hasError: Boolean
+      hasError: Boolean,
+    },
+    data() {
+      return {
+        emptyStar: emptyStar,
+        favoriteStar: favoriteStar
+      }
     }
   }
 </script>
@@ -38,7 +49,13 @@
     min-height: 600px;
   }
 
-  img {
+  .star {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+  }
+
+  .stellar-image {
     height: auto;
     width: 60%;
     max-height: 600px;
@@ -49,7 +66,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    max-height: 500px;
+    max-height: 600px;
     overflow: auto;
     width: 30%;
   }

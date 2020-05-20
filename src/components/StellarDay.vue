@@ -1,7 +1,7 @@
 <template>
   <header>
     <div></div>
-    <h1>Have a STELLAR day!</h1>
+    <h1>Have a <u>STELLAR</u> day!</h1>
     <p>{{ date }}</p>
   </header>
 </template>

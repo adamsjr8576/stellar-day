@@ -26,27 +26,32 @@
       return {
         imageInfo: {},
         todayDate: date,
-        hasError: false
+        hasError: false,
+        favorites: []
       }
     },
     mounted() {
-      this.getImageInfo();
+      this.getImageInfo('');
     },
     methods: {
       async getImageInfo(date) {
-        if (date === undefined) {
-          date = '';
-        }
         try {
           const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=8oQoPUrgzaFZKmMLnJAHgmp8kptIxV6YAC3CUceC${date}`);
           const data = await response.json();
           if (data.code === 400) {
             this.hasError = true;
           }
-          this.imageInfo = data;
+          const favoriteImageInfo = this.checkFavorites(data);
+          this.imageInfo = favoriteImageInfo;
         } catch (error) {
           console.log(error)
         }
+      },
+
+      checkFavorites(imageInfo) {
+        const check = this.favorites.filter(favorite => favorite.title = imageInfo.title);
+        check.length === 1? imageInfo.favorite = true : imageInfo.favorite = false;
+        return imageInfo;
       },
 
       resetDate(date) {

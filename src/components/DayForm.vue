@@ -7,7 +7,7 @@
     </section>
     <section class='display-new-date' v-else>
       <p>Select</p>
-      <img @click='toggleDisplay()' :src='upArrow' />
+      <img class='up-arrow' @click='toggleDisplay()' :src='upArrow' />
       <p>Date</p>
     </section>
   </form>
@@ -81,6 +81,18 @@
     outline: 0;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 1s;
+  }
+
+  button:hover {
+    transform: scale(1.02);
+    box-shadow: 5px 4px #989AA4;
+    transition: transform 1s;
+  }
+
+  button:active {
+    transform: scale(.98);
+    transform: translate(3px, 2px);
   }
 
   .display-new-date {
@@ -92,12 +104,31 @@
 
   .down-arrow {
     margin-top: 45px;
+    height: 60px;
+    width: auto;
+    cursor: pointer;
+    transition: transform 1s;
   }
 
-  img {
+  .down-arrow:hover {
+    transform: scale(1.1);
+    transition: transform 1s;
+  }
+
+  .up-arrow {
     height: 60px;
     width: auto;
     margin: 0 30px;
     cursor: pointer;
+    transition-property: margin, transform;
+    transition-duration: 1s, 1s;
   }
+
+  .up-arrow:hover {
+    transform: scale(1.1);
+    margin: 0 15px;
+    transition-property: margin, transform;
+    transition-duration: 1s, 1s;
+  }
+
 </style>
