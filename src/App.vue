@@ -45,6 +45,11 @@
       }
     },
     mounted() {
+      var favoritesInfo = localStorage.getItem('favorites');
+      var parsedFavoritesInfo = JSON.parse(favoritesInfo);
+      if (parsedFavoritesInfo !== null) {
+        this.favorites = parsedFavoritesInfo;
+      }
       this.getImageInfo('');
     },
     methods: {
@@ -71,15 +76,16 @@
       toggleFavorites(imageInfo) {
         if (imageInfo.favorite) {
           imageInfo.favorite = false;
-          this.favorites = this.favorites.filter(favorite => favorite.title !== imageInfo.title)
+          this.favorites = this.favorites.filter(favorite => favorite.title !== imageInfo.title);
+          this.setLocalStorage();
         } else {
           imageInfo.favorite = true;
           this.favorites.push(imageInfo);
+          this.setLocalStorage();
         }
       },
 
       displaySelected(imageInfo) {
-        console.log('made it')
         this.showFavorites = false;
         this.imageInfo = imageInfo;
       },
@@ -88,6 +94,11 @@
         this.hasError = false;
         date = "&date=" + date;
         this.getImageInfo(date);
+      },
+
+      setLocalStorage() {
+        const stringImageInfo = JSON.stringify(this.favorites);
+        localStorage.setItem('favorites', stringImageInfo);
       }
     }
   }

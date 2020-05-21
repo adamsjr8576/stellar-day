@@ -131,4 +131,8 @@
     transition-duration: 1s, 1s;
   }
 
+  p {
+    margin: 0;
+  }
+
 </style>

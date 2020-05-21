@@ -45,6 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 20px 0;
   }
 
   .back-button-container {
@@ -83,7 +84,7 @@
     height: 300px;
     width: 400px;
     background-size: cover;
-    margin: 15px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
